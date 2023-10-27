@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/movies")
@@ -29,5 +30,10 @@ public class MoviesController {
     public Movie save(@RequestBody Movie movie) {
         //return ResponseEntity.status(HttpStatus.CREATED).body(this.movieService.save(movie));
         return this.movieService.save(movie);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> findById(@PathVariable UUID id) {
+        return this.movieService.findById(id);
     }
 }
