@@ -19,11 +19,28 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Movie save(Movie movie) { return movieRepository.save(movie); }
-
     public ResponseEntity<Movie> findById(UUID id) {
         return movieRepository.findById(id)
-                .map(movie -> ResponseEntity.ok().body(movie))
+                .map(entity -> ResponseEntity.ok().body(entity))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    public Movie save(Movie obj) { return movieRepository.save(obj); }
+
+    public ResponseEntity<Movie> update(UUID id, Movie obj) {
+        return movieRepository.findById(id)
+                .map(entity -> {
+                    updateMovie(entity, obj);
+                    Movie updated = movieRepository.save(entity);
+                    return ResponseEntity.ok().body(updated);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    private void updateMovie(Movie entity, Movie obj) {
+        entity.setName(obj.getName());
+        entity.setReleaseDate(obj.getReleaseDate());
+        entity.setMovieDuration(obj.getMovieDuration());
+        entity.setMovieClassification(obj.getMovieClassification());
     }
 }

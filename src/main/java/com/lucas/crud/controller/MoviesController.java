@@ -25,6 +25,11 @@ public class MoviesController {
         return movieService.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Movie> findById(@PathVariable UUID id) {
+        return this.movieService.findById(id);
+    }
+
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Movie save(@RequestBody Movie movie) {
@@ -32,8 +37,8 @@ public class MoviesController {
         return this.movieService.save(movie);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Movie> findById(@PathVariable UUID id) {
-        return this.movieService.findById(id);
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Movie> update(@PathVariable UUID id, @RequestBody Movie newMovie) {
+        return this.movieService.update(id, newMovie);
     }
 }
