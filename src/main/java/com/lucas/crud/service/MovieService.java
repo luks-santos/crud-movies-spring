@@ -43,4 +43,14 @@ public class MovieService {
         entity.setMovieDuration(obj.getMovieDuration());
         entity.setMovieClassification(obj.getMovieClassification());
     }
+
+    public ResponseEntity<Void> delete(UUID id) {
+        return movieRepository.findById(id)
+                .map(entity -> {
+                    movieRepository.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
+
+    }
 }

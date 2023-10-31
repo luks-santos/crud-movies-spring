@@ -22,7 +22,7 @@ public class MoviesController {
 
     @GetMapping
     public List<Movie> findAll() {
-        return movieService.findAll();
+        return this.movieService.findAll();
     }
 
     @GetMapping("/{id}")
@@ -40,5 +40,10 @@ public class MoviesController {
     @PutMapping(value = "/{id}")
     public ResponseEntity<Movie> update(@PathVariable UUID id, @RequestBody Movie newMovie) {
         return this.movieService.update(id, newMovie);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable UUID id){
+        return this.movieService.delete(id);
     }
 }
