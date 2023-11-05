@@ -1,6 +1,6 @@
 package com.lucas.crud.controller;
 
-import com.lucas.crud.entities.Movie;
+import com.lucas.crud.dto.MovieDTO;
 import com.lucas.crud.service.MovieService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -19,24 +19,24 @@ public class MoviesController {
     }
 
     @GetMapping
-    public List<Movie> findAll() {
+    public List<MovieDTO> findAll() {
         return movieService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Movie findById(@PathVariable UUID id) {
+    public MovieDTO findById(@PathVariable UUID id) {
         return movieService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Movie save(@RequestBody Movie movie) {
+    public MovieDTO save(@RequestBody MovieDTO movie) {
         return movieService.save(movie);
     }
 
     @PutMapping(value = "/{id}")
-    public Movie update(@PathVariable UUID id, @RequestBody Movie newMovie) {
-        return movieService.update(id, newMovie);
+    public MovieDTO update(@PathVariable UUID id, @RequestBody MovieDTO obj) {
+        return movieService.update(id, obj);
     }
 
     @DeleteMapping(value = "/{id}")

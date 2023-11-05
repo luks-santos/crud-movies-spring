@@ -15,11 +15,10 @@ import org.hibernate.validator.constraints.Range;
 import java.util.UUID;
 
 @NoArgsConstructor
-@AllArgsConstructor()
+@AllArgsConstructor
 @Getter
 @Setter
 @Entity
-
 @SQLDelete(sql = "UPDATE movie SET status = 'Inativo' WHERE id = ?")
 @Where(clause = "status = 'Ativo'")
 public class Movie {
@@ -29,6 +28,7 @@ public class Movie {
     @JsonProperty("_id")
     private UUID id;
 
+    @NotBlank
     @NotNull
     @Length(min = 1, max = 50)
     @Column(length = 50, nullable = false)
