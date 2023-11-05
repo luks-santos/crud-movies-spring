@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 public class MovieService {
@@ -27,17 +26,17 @@ public class MovieService {
     public List<MovieDTO> findAll() {
         return movieRepository.findAll()
                 .stream()
-                .map(entity -> movieMapper.toDTO(entity))
-                .collect(Collectors.toList());
+                .map(movieMapper::toDTO)
+                .toList();
     }
 
     public MovieDTO findById(UUID id) {
         return movieRepository.findById(id)
-                .map(entity -> movieMapper.toDTO(entity))
+                .map(movieMapper::toDTO)
                 .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public MovieDTO save(@Valid @NotNull  MovieDTO obj) {
+    public MovieDTO save(@Valid @NotNull MovieDTO obj) {
         return movieMapper.toDTO(movieRepository.save(movieMapper.toEntity(obj)));
     }
 
@@ -57,7 +56,7 @@ public class MovieService {
     private void updateMovie(Movie entity, Movie obj) {
         entity.setName(obj.getName());
         entity.setReleaseDate(obj.getReleaseDate());
-        entity.setMovieDuration(obj.getMovieDuration());
-        entity.setMovieClassification(obj.getMovieClassification());
+        entity.setDuration(obj.getDuration());
+        entity.setClassification(obj.getClassification());
     }
 }

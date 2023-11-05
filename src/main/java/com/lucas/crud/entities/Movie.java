@@ -1,8 +1,10 @@
 package com.lucas.crud.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.lucas.crud.enums.MovieClassification;
-import com.lucas.crud.enums.converters.MovieClassificationConverter;
+import com.lucas.crud.enums.Classification;
+import com.lucas.crud.enums.Status;
+import com.lucas.crud.enums.converters.ClassificationConverter;
+import com.lucas.crud.enums.converters.StatusConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -42,16 +44,15 @@ public class Movie {
     @Length(min = 5, max = 7)
     @Pattern(regexp = "^\\d{1,2}h \\d{1,2}m$")
     @Column(length = 7, nullable = false)
-    private String movieDuration;
+    private String duration;
 
     @NotNull
     @Column(length = 10, nullable = false)
-    @Convert(converter = MovieClassificationConverter.class)
-    private MovieClassification movieClassification;
+    @Convert(converter = ClassificationConverter.class)
+    private Classification classification;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Ativo|Inativo")
     @Column(length = 10, nullable = false)
-    private String status = "Ativo";
+    @Convert(converter = StatusConverter.class)
+    private Status status = Status.ACTIVE;
 }

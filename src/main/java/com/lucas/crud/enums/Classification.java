@@ -1,12 +1,12 @@
 package com.lucas.crud.enums;
 
-public enum MovieClassification {
-    RUIM("Ruim"),
-    BOM("Bom"),
-    EXCELENTE("Excelente");
+public enum Classification {
+    BAD("Ruim"),
+    GOD("Bom"),
+    EXCELLENT("Excelente");
 
-    private String value;
-    private MovieClassification(String value) {
+    private final String value;
+    private Classification(String value) {
         this.value = value;
     }
 
