@@ -1,12 +1,12 @@
 package com.lucas.crud.service;
 
 import com.lucas.crud.entities.Movie;
+import com.lucas.crud.exception.RecordNotFoundException;
 import com.lucas.crud.repositories.MovieRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -22,18 +22,19 @@ public class MovieService {
         return movieRepository.findAll();
     }
 
-    public Optional<Movie> findById(UUID id) {
-        return movieRepository.findById(id);
+    public Movie findById(UUID id) {
+        return movieRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     public Movie save(@Valid Movie obj) { return movieRepository.save(obj); }
 
-    public Optional<Movie> update(UUID id, @Valid Movie obj) {
+    public Movie update(UUID id, @Valid Movie obj) {
         return movieRepository.findById(id)
             .map(entity -> {
                 updateMovie(entity, obj);
                 return movieRepository.save(entity);
-            });
+            }).orElseThrow(() -> new RecordNotFoundException(id));
     }
 
     private void updateMovie(Movie entity, Movie obj) {
@@ -43,12 +44,8 @@ public class MovieService {
         entity.setMovieClassification(obj.getMovieClassification());
     }
 
-    public boolean delete(UUID id) {
-        return movieRepository.findById(id)
-                .map(entity -> {
-                    movieRepository.deleteById(id);
-                    return true;
-                })
-                .orElse(false);
+    public void delete(UUID id) {
+        movieRepository.delete(movieRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id)));
     }
 }
