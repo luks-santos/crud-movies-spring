@@ -8,8 +8,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.awt.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootApplication
 public class CrudMoviesTvserieSpringApplication {
@@ -22,12 +25,10 @@ public class CrudMoviesTvserieSpringApplication {
     CommandLineRunner initDatabase(MovieRepository movieRepository) {
         return args -> {
             movieRepository.deleteAll();
-            Movie m = new Movie();
-            m.setName("Clube da Luta");
-            m.setReleaseDate("1999");
-            m.setMovieDuration("2h 19m");
-            m.setMovieClassification(MovieClassification.BOM);
-            movieRepository.save(m);
+            List<Movie> movies = new ArrayList<>();
+            movies.add(new Movie(null, "Clube da Luta", 1999, "2h 19m", MovieClassification.EXCELENTE));
+            movies.add(new Movie(null, "Saw", 2005, "1h 40m", MovieClassification.BOM));
+            movieRepository.saveAll(movies);
         };
     }
 }

@@ -2,10 +2,9 @@ package com.lucas.crud.controller;
 
 import com.lucas.crud.entities.Movie;
 import com.lucas.crud.service.MovieService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,13 +31,13 @@ public class MoviesController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Movie save(@RequestBody Movie movie) {
+    public Movie save(@RequestBody @Valid Movie movie) {
         //return ResponseEntity.status(HttpStatus.CREATED).body(this.movieService.save(movie));
         return this.movieService.save(movie);
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Movie> update(@PathVariable UUID id, @RequestBody Movie newMovie) {
+    public ResponseEntity<Movie> update(@PathVariable UUID id, @RequestBody @Valid Movie newMovie) {
         return this.movieService.update(id, newMovie);
     }
 
