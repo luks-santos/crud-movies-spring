@@ -26,8 +26,8 @@ public class CrudMoviesTvserieSpringApplication {
         return args -> {
             movieRepository.deleteAll();
             List<Movie> movies = new ArrayList<>();
-            movies.add(new Movie(null, "Clube da Luta", 1999, "2h 19m", MovieClassification.EXCELENTE));
-            movies.add(new Movie(null, "Saw", 2005, "1h 40m", MovieClassification.BOM));
+            movies.add(new Movie(null, "Clube da Luta", 1999, "2h 19m", MovieClassification.EXCELENTE, "Ativo"));
+            movies.add(new Movie(null, "Saw", 2005, "1h 40m", MovieClassification.BOM, "Ativo"));
             movieRepository.saveAll(movies);
         };
     }
