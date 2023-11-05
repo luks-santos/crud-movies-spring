@@ -2,39 +2,38 @@ package com.lucas.crud.service;
 
 import com.lucas.crud.entities.Movie;
 import com.lucas.crud.repositories.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
 public class MovieService {
 
-    @Autowired
-    private MovieRepository movieRepository;
+    private final MovieRepository movieRepository;
+
+    public MovieService(MovieRepository movieRepository) {
+        this.movieRepository = movieRepository;
+    }
 
     public List<Movie> findAll() {
         return movieRepository.findAll();
     }
 
-    public ResponseEntity<Movie> findById(UUID id) {
-        return movieRepository.findById(id)
-                .map(entity -> ResponseEntity.ok().body(entity))
-                .orElse(ResponseEntity.notFound().build());
+    public Optional<Movie> findById(UUID id) {
+        return movieRepository.findById(id);
     }
 
-    public Movie save(Movie obj) { return movieRepository.save(obj); }
+    public Movie save(@Valid Movie obj) { return movieRepository.save(obj); }
 
-    public ResponseEntity<Movie> update(UUID id, Movie obj) {
+    public Optional<Movie> update(UUID id, @Valid Movie obj) {
         return movieRepository.findById(id)
-                .map(entity -> {
-                    updateMovie(entity, obj);
-                    Movie updated = movieRepository.save(entity);
-                    return ResponseEntity.ok().body(updated);
-                })
-                .orElse(ResponseEntity.notFound().build());
+            .map(entity -> {
+                updateMovie(entity, obj);
+                return movieRepository.save(entity);
+            });
     }
 
     private void updateMovie(Movie entity, Movie obj) {
@@ -44,13 +43,12 @@ public class MovieService {
         entity.setMovieClassification(obj.getMovieClassification());
     }
 
-    public ResponseEntity<Void> delete(UUID id) {
+    public boolean delete(UUID id) {
         return movieRepository.findById(id)
                 .map(entity -> {
                     movieRepository.deleteById(id);
-                    return ResponseEntity.noContent().<Void>build();
+                    return true;
                 })
-                .orElse(ResponseEntity.notFound().build());
-
+                .orElse(false);
     }
 }
