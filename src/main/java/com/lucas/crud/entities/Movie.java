@@ -1,11 +1,11 @@
 package com.lucas.crud.entities;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.lucas.crud.enums.MovieClassification;
+import com.lucas.crud.enums.converters.MovieClassificationConverter;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -14,8 +14,7 @@ import org.hibernate.validator.constraints.Range;
 
 import java.util.UUID;
 
-@NoArgsConstructor
-@AllArgsConstructor
+
 @Getter
 @Setter
 @Entity
@@ -46,7 +45,8 @@ public class Movie {
     private String movieDuration;
 
     @NotNull
-    @Enumerated
+    @Column(length = 10, nullable = false)
+    @Convert(converter = MovieClassificationConverter.class)
     private MovieClassification movieClassification;
 
     @NotNull

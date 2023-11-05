@@ -1,6 +1,6 @@
 package com.lucas.crud.dto;
 
-import com.lucas.crud.entities.MovieClassification;
+import com.lucas.crud.enums.MovieClassification;
 import jakarta.persistence.Enumerated;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

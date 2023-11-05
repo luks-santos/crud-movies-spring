@@ -1,7 +1,7 @@
 package com.lucas.crud;
 
 import com.lucas.crud.entities.Movie;
-import com.lucas.crud.entities.MovieClassification;
+import com.lucas.crud.enums.MovieClassification;
 import com.lucas.crud.repositories.MovieRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,8 +24,21 @@ public class CrudMoviesTvserieSpringApplication {
         return args -> {
             movieRepository.deleteAll();
             List<Movie> movies = new ArrayList<>();
-            movies.add(new Movie(null, "Clube da Luta", 1999, "2h 19m", MovieClassification.EXCELENTE, "Ativo"));
-            movies.add(new Movie(null, "Saw", 2005, "1h 40m", MovieClassification.BOM, "Ativo"));
+
+            Movie movie = new Movie();
+            movie.setName("Clube da Luta");
+            movie.setReleaseDate(1999);
+            movie.setMovieDuration("2h 19m");
+            movie.setMovieClassification(MovieClassification.EXCELENTE);
+
+            Movie movie1 = new Movie();
+            movie1.setName("Saw");
+            movie1.setReleaseDate(2005);
+            movie1.setMovieDuration("1h 40m");
+            movie1.setMovieClassification( MovieClassification.BOM);
+
+            movies.add(movie);
+            movies.add(movie1);
             movieRepository.saveAll(movies);
         };
     }
