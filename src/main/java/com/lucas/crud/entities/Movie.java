@@ -1,6 +1,5 @@
 package com.lucas.crud.entities;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.lucas.crud.enums.Classification;
 import com.lucas.crud.enums.Status;
 import com.lucas.crud.enums.converters.ClassificationConverter;
@@ -14,6 +13,8 @@ import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -26,7 +27,6 @@ public class Movie {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @JsonProperty("_id")
     private UUID id;
 
     @NotBlank
@@ -55,4 +55,8 @@ public class Movie {
     @Column(length = 10, nullable = false)
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
+
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "movie")
+    //@JoinColumn(name = "movie_id")
+    private List<Comment> comments = new ArrayList<>();
 }
