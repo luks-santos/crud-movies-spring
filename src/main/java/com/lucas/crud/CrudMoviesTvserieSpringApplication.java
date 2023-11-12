@@ -30,8 +30,13 @@ public class CrudMoviesTvserieSpringApplication {
             Comment c1 = new Comment();
             c1.setReview("hehehe");
             c1.setMovie(movie);
-
             movie.getComments().add(c1);
+
+            Comment c2 = new Comment();
+            c2.setReview("hehehe2");
+            c2.setMovie(movie);
+
+            movie.getComments().add(c2);
             movieRepository.save(movie);
         };
     }

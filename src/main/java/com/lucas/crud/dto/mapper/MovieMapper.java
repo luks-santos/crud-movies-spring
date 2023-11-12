@@ -13,7 +13,7 @@ public class MovieMapper {
             return null;
         }
         return new MovieDTO(movie.getId(), movie.getName(), movie.getReleaseDate(),
-                movie.getDuration(), movie.getClassification().getValue());
+                movie.getDuration(), movie.getClassification().getValue(), movie.getComments());
     }
 
     public Movie toEntity(MovieDTO movieDTO) {
