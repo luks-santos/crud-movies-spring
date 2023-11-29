@@ -2,6 +2,7 @@ package com.lucas.crud.dto.mapper;
 
 import com.lucas.crud.dto.CommentDTO;
 import com.lucas.crud.dto.MovieDTO;
+import com.lucas.crud.entities.Comment;
 import com.lucas.crud.entities.Movie;
 import com.lucas.crud.enums.Classification;
 import org.springframework.stereotype.Component;
@@ -39,6 +40,15 @@ public class MovieMapper {
         movie.setDuration(movieDTO.duration());
         movie.setClassification(convertClassificationValue(movieDTO.classification()));
 
+        List<Comment> comments = movieDTO.comments().stream().map(commentsDTO -> {
+            var comment = new Comment();
+            comment.setId(commentsDTO.id());
+            comment.setReview(commentsDTO.review());
+            comment.setMovie(movie);
+            return comment;
+        }).toList();
+
+        movie.setComments(comments);
         return movie;
     }
 

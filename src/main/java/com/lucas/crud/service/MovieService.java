@@ -58,5 +58,9 @@ public class MovieService {
         entity.setReleaseDate(obj.getReleaseDate());
         entity.setDuration(obj.getDuration());
         entity.setClassification(obj.getClassification());
+
+        //Mantêm a referência do objeto lista, assim o jpa entende que deve atualizar os comentários
+        entity.getComments().clear();
+        obj.getComments().forEach(comment -> entity.getComments().add(comment));
     }
 }

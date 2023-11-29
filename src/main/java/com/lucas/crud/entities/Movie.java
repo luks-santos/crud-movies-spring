@@ -56,7 +56,7 @@ public class Movie {
     @Convert(converter = StatusConverter.class)
     private Status status = Status.ACTIVE;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "movie")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "movie")
     //@JoinColumn(name = "movie_id")
     private List<Comment> comments = new ArrayList<>();
 }
