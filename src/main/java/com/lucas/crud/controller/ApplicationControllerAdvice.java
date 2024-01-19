@@ -26,6 +26,14 @@ public class ApplicationControllerAdvice {
                 .reduce("", (acc, error) -> acc + error + "\n");
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public String handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+        return ex.getBindingResult().getFieldErrors().stream()
+                .map(exception -> exception.getField() + " " + exception.getDefaultMessage())
+                .reduce("", (acc, error) -> acc + error + "\n");
+    }
+
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public String handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
@@ -35,8 +43,5 @@ public class ApplicationControllerAdvice {
             return ex.getName() + " should be type " + typeName;
         }
         return "Argument type not valid";
-
     }
-
-
 }
