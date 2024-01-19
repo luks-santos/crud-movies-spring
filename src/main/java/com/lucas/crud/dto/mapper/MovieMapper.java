@@ -40,15 +40,16 @@ public class MovieMapper {
         movie.setDuration(movieDTO.duration());
         movie.setClassification(convertClassificationValue(movieDTO.classification()));
 
-        List<Comment> comments = movieDTO.comments().stream().map(commentsDTO -> {
-            var comment = new Comment();
-            comment.setId(commentsDTO.id());
-            comment.setReview(commentsDTO.review());
-            comment.setMovie(movie);
-            return comment;
-        }).toList();
-
-        movie.setComments(comments);
+        if (movieDTO.comments() != null) {
+            List<Comment> comments = movieDTO.comments().stream().map(commentsDTO -> {
+                var comment = new Comment();
+                comment.setId(commentsDTO.id());
+                comment.setReview(commentsDTO.review());
+                comment.setMovie(movie);
+                return comment;
+            }).toList();
+            movie.setComments(comments);
+        }
         return movie;
     }
 

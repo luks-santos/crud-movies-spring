@@ -1,8 +1,6 @@
 package com.lucas.crud.enums;
 
-import lombok.Getter;
 
-@Getter
 public enum Classification {
     BAD("Ruim"),
     GOD("Bom"),
@@ -11,6 +9,10 @@ public enum Classification {
     private final String value;
     Classification(String value) {
         this.value = value;
+    }
+
+    public String getValue() {
+        return value;
     }
 
     @Override

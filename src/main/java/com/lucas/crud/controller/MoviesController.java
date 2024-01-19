@@ -12,36 +12,36 @@ import java.util.UUID;
 @RequestMapping("/api/movies")
 public class MoviesController {
 
-    private final MovieService movieService;
+    private final MovieService service;
 
-    public MoviesController(MovieService movieService) {
-        this.movieService = movieService;
+    public MoviesController(MovieService service) {
+        this.service = service;
     }
 
     @GetMapping
     public List<MovieDTO> findAll() {
-        return movieService.findAll();
+        return service.findAll();
     }
 
     @GetMapping("/{id}")
     public MovieDTO findById(@PathVariable UUID id) {
-        return movieService.findById(id);
+        return service.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public MovieDTO save(@RequestBody MovieDTO movie) {
-        return movieService.save(movie);
+        return service.save(movie);
     }
 
     @PutMapping(value = "/{id}")
     public MovieDTO update(@PathVariable UUID id, @RequestBody MovieDTO obj) {
-        return movieService.update(id, obj);
+        return service.update(id, obj);
     }
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void delete(@PathVariable UUID id){
-        movieService.delete(id);
+        service.delete(id);
     }
 }
