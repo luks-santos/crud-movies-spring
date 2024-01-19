@@ -36,11 +36,11 @@ public class MovieService {
                 .orElseThrow(() -> new RecordNotFoundException(id));
     }
 
-    public MovieDTO save(@Valid MovieDTO obj) {
+    public MovieDTO save(MovieDTO obj) {
         return movieMapper.toDTO(movieRepository.save(movieMapper.toEntity(obj)));
     }
 
-    public MovieDTO update(UUID id, @Valid MovieDTO obj) {
+    public MovieDTO update(UUID id, MovieDTO obj) {
         return movieRepository.findById(id)
             .map(entity -> {
                 updateMovie(entity, movieMapper.toEntity(obj));

@@ -2,6 +2,7 @@ package com.lucas.crud.controller;
 
 import com.lucas.crud.dto.MovieDTO;
 import com.lucas.crud.service.MovieService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,12 +31,12 @@ public class MoviesController {
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public MovieDTO save(@RequestBody MovieDTO movie) {
+    public MovieDTO save(@RequestBody @Valid MovieDTO movie) {
         return service.save(movie);
     }
 
     @PutMapping(value = "/{id}")
-    public MovieDTO update(@PathVariable UUID id, @RequestBody MovieDTO obj) {
+    public MovieDTO update(@PathVariable UUID id, @RequestBody @Valid MovieDTO obj) {
         return service.update(id, obj);
     }
 
