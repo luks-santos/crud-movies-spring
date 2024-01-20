@@ -4,6 +4,7 @@ import com.lucas.crud.enums.Classification;
 import com.lucas.crud.enums.Status;
 import com.lucas.crud.enums.converters.ClassificationConverter;
 import com.lucas.crud.enums.converters.StatusConverter;
+import com.lucas.crud.enums.validations.ValueOfEnum;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;

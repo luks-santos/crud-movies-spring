@@ -1,5 +1,7 @@
 package com.lucas.crud.dto;
 
+import com.lucas.crud.enums.Classification;
+import com.lucas.crud.enums.validations.ValueOfEnum;
 import jakarta.validation.constraints.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -20,6 +22,7 @@ public record MovieDTO(
                 "Use the format 'Xh Ym' where X is the number of hours (1 to 999) and Y is the number of minutes (1 to 59). " +
                 "Example: '2h 30m'.")
         String duration,
+        @ValueOfEnum(enumClass = Classification.class)
         @NotBlank(message = "Classification field is mandatory.")
         String classification,
         List<CommentDTO> comments
