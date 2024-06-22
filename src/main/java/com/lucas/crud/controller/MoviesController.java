@@ -1,12 +1,15 @@
 package com.lucas.crud.controller;
 
 import com.lucas.crud.dto.MovieDTO;
+import com.lucas.crud.dto.MoviePageDTO;
 import com.lucas.crud.service.MovieService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -20,8 +23,11 @@ public class MoviesController {
     }
 
     @GetMapping
-    public List<MovieDTO> findAll() {
-        return service.findAll();
+    public MoviePageDTO findAll(
+            @RequestParam(defaultValue = "0") @PositiveOrZero int page,
+            @RequestParam(defaultValue = "10") @Positive @Max(100) int pageSize
+    ) {
+        return service.findAll(page, pageSize);
     }
 
     @GetMapping("/{id}")
@@ -42,7 +48,7 @@ public class MoviesController {
 
     @DeleteMapping(value = "/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable UUID id){
+    public void delete(@PathVariable UUID id) {
         service.delete(id);
     }
 }

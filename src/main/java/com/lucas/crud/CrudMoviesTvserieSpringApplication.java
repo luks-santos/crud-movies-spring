@@ -20,24 +20,26 @@ public class CrudMoviesTvserieSpringApplication {
     CommandLineRunner initDatabase(MovieRepository movieRepository) {
         return args -> {
             movieRepository.deleteAll();
+            for (int i = 0; i < 20; i++) {
+                Movie movie = new Movie();
+                movie.setName("fILME " + i);
+                movie.setReleaseDate(1999 + i);
+                movie.setDuration("2h 19m");
+                movie.setClassification(Classification.EXCELLENT);
 
-            Movie movie = new Movie();
-            movie.setName("Clube da Luta");
-            movie.setReleaseDate(1999);
-            movie.setDuration("2h 19m");
-            movie.setClassification(Classification.EXCELLENT);
+                Comment c1 = new Comment();
+                c1.setReview("hehehe");
+                c1.setMovie(movie);
+                movie.getComments().add(c1);
 
-            Comment c1 = new Comment();
-            c1.setReview("hehehe");
-            c1.setMovie(movie);
-            movie.getComments().add(c1);
+                Comment c2 = new Comment();
+                c2.setReview("hehehe2");
+                c2.setMovie(movie);
 
-            Comment c2 = new Comment();
-            c2.setReview("hehehe2");
-            c2.setMovie(movie);
+                movie.getComments().add(c2);
+                movieRepository.save(movie);
+            }
 
-            movie.getComments().add(c2);
-            movieRepository.save(movie);
         };
     }
 }
