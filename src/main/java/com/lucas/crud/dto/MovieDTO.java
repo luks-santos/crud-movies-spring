@@ -3,8 +3,6 @@ package com.lucas.crud.dto;
 import com.lucas.crud.enums.Classification;
 import com.lucas.crud.enums.validations.ValueOfEnum;
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
 
 import java.util.List;
 import java.util.UUID;

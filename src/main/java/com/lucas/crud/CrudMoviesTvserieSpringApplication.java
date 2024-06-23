@@ -22,7 +22,7 @@ public class CrudMoviesTvserieSpringApplication {
             movieRepository.deleteAll();
             for (int i = 0; i < 20; i++) {
                 Movie movie = new Movie();
-                movie.setName("fILME " + i);
+                movie.setName("Filme " + i);
                 movie.setReleaseDate(1999 + i);
                 movie.setDuration("2h 19m");
                 movie.setClassification(Classification.EXCELLENT);
@@ -33,7 +33,7 @@ public class CrudMoviesTvserieSpringApplication {
                 movie.getComments().add(c1);
 
                 Comment c2 = new Comment();
-                c2.setReview("hehehe2");
+                c2.setReview("hehehe");
                 c2.setMovie(movie);
 
                 movie.getComments().add(c2);
